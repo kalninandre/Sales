@@ -18,6 +18,7 @@ namespace Sales.Controllers
         public ActionResult Index()
         {
             var departments = (from m in _context.Departments
+                               orderby m.Name
                                select new DepartmentViewModel
                                {
                                    Id = m.Id,

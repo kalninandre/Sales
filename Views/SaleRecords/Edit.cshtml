@@ -1,0 +1,55 @@
+﻿@model Sales.ViewModels.SaleRecordViewModel;
+@using System.Globalization
+
+@{
+    ViewBag.Title = string.Format("Editar Vendeda #{0}", Model.Id);
+}
+
+<div class="container">
+    <h4>@ViewBag.Title</h4>
+
+    <hr style="margin-bottom: 0.5rem !important;" />
+
+    <div class="row">
+        <div class="col-md-6">
+            <form asp-controller="SaleRecords" asp-action="Edit">
+                <div class="form-group">
+                    <label asp-for="@Model.Date" class="control-label">Data</label>
+                    <input asp-for="@Model.Date" class="form-control" placeholder="Data" />
+                    <span asp-validation-for="@Model.Date" class="text-danger"></span>
+                </div>
+
+                <div class="form-group mt-4">
+                    <label asp-for="@Model.Amount" class="control-label">Quantidade</label>
+                    <input asp-for="@Model.Amount" class="form-control" placeholder="Quantidade" />
+                    <span asp-validation-for="@Model.Amount" class="text-danger"></span>
+                </div>
+
+                <div class="form-group mt-4">
+                    <label asp-for="@Model.Status" class="control-label">Status do Pedido</label>
+                    <select asp-for="@Model.Status" asp-items="@ViewBag.Status" class="form-control"></select>
+                </div> 
+                
+                <div class="form-group mt-4">
+                    <label asp-for="@Model.SellerId" class="control-label">Vendedor</label>
+                    <select asp-for="@Model.SellerId" asp-items="@ViewBag.Sellers" class="form-control"></select>
+                </div>
+
+                <div class="d-flex justify-content-between align-items-center form-group mt-4">
+                    <a asp-action="Index" class="btn btn-secondary text-decoration-underline">
+                        Voltar
+                    </a>
+                    <button type="submit" class="btn btn-secondary text-decoration-underline">
+                        Salvar
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

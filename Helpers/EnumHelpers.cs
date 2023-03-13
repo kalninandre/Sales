@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using Microsoft.AspNetCore.Mvc.Rendering;
+using System.ComponentModel;
 using System.Reflection;
 
 namespace Sales.Helpers
@@ -15,6 +16,17 @@ namespace Sales.Helpers
                 return enumerator.ToString();
             }
             return field.Description.ToString();
+        }
+
+        public static List<SelectListItem> GenerateSelectList<T>() where T : Enum
+        {
+            var query = (from m in Enum.GetValues(typeof(T)).Cast<T>().ToList()
+                         select new SelectListItem()
+                         {
+                             Text = m.GetDescription(),
+                             Value = m.ToString()
+                         }).ToList();
+            return query;
         }
     }
 }

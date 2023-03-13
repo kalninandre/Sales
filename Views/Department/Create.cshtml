@@ -3,28 +3,30 @@
     ViewBag.Title = "Novo Departamento";
 }
 
-<h4>@ViewBag.Title</h4>
+<div class="container">
+    <h4>@ViewBag.Title</h4>
 
-<hr style="margin-bottom: 0.5rem !important;" />
+    <hr style="margin-bottom: 0.5rem !important;" />
 
-<div class="row">
-    <div class="col-md-6">
-        <form asp-controller="Department" asp-action="Create">
-            <div class="form-group">
-                <label asp-for="@Model.Name" class="control-label"></label>
-                <input asp-for="@Model.Name" class="form-control" placeholder="Nome" />
-                <span asp-validation-for="@Model.Name" class="text-danger"></span>
-            </div>
+    <div class="row">
+        <div class="col-md-6">
+            <form asp-controller="Department" asp-action="Create">
+                <div class="form-group">
+                    <label asp-for="@Model.Name" class="control-label"></label>
+                    <input asp-for="@Model.Name" class="form-control" placeholder="Nome" />
+                    <span asp-validation-for="@Model.Name" class="text-danger"></span>
+                </div>
 
-            <div class="d-flex justify-content-between align-items-center form-group mt-4">
-                <a asp-action="Index" class="btn btn-secondary text-decoration-underline">
-                    Voltar
-                </a>
-                <button type="submit" class="btn btn-secondary text-decoration-underline">
-                    Salvar
-                </button>
-            </div>
-        </form>
+                <div class="d-flex justify-content-between align-items-center form-group mt-4">
+                    <a asp-action="Index" class="btn btn-secondary text-decoration-underline">
+                        Voltar
+                    </a>
+                    <button type="submit" class="btn btn-secondary text-decoration-underline">
+                        Salvar
+                    </button>
+                </div>
+            </form>
+        </div>
     </div>
 </div>
 

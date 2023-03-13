@@ -1,43 +1,51 @@
-﻿using Sales.Enums;
+﻿using Mysqlx;
+using Sales.Enums;
 using Sales.Models;
+using System;
 using System.ComponentModel.DataAnnotations;
 
 namespace Sales.ViewModels
 {
-    public class SalesRecordMainViewModel
+    public class SaleRecordMainViewModel
     {
-        public SalesRecordMainViewModel()
+        public SaleRecordMainViewModel()
         {
             Filter = new SalesRecordFilter();
         }
 
-        public List<SalesRecordGroupedViewModel> SalesRecordsGroups { get; set; }
+        public List<SaleRecordGroupedViewModel> SalesRecordsGroups { get; set; }
 
         public SalesRecordFilter Filter { get; set; }
     }
 
-    public class SalesRecordGroupedViewModel
+    public class SaleRecordGroupedViewModel
     {
         public string Name { get; set; }
 
         public int Counter { get; set; }
 
-        public List<SalesRecordViewModel> SalesRecords { get; set; }
+        public List<SaleRecordViewModel> SalesRecords { get; set; }
     }
 
-    public class SalesRecordViewModel
+    public class SaleRecordViewModel
     {
         public int Id { get; set; }
 
+        [Required(ErrorMessage = "Campo {0} requerido")]
+        [DataType(DataType.Date)]
         public DateTime Date { get; set; }
 
         public string DateString { get { return Date.ToShortDateString(); } }
 
+        [Required(ErrorMessage = "Campo {0} requerido")]
         public double Amount { get; set; }
 
         public SaleStatusEnum Status { get; set; }
 
         public string DepartmentName { get; set; }
+
+        [Required(ErrorMessage = "Campo de vendedor requerido")]
+        public int SellerId { get; set; }
 
         public string SellerName { get; set; }
 
@@ -61,5 +69,6 @@ namespace Sales.ViewModels
         [DisplayFormat(DataFormatString = "{0: dd/MM/yyyy}")]
         public DateTime? DateEnd { get; set; }
         public bool Status { get; set; }
+        public bool AllPeriods { get; set; }
     }
 }

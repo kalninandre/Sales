@@ -33,7 +33,7 @@ namespace Sales.ViewModels
 
         public Department Department { get; set; }
 
-        public List<SalesRecordViewModel> Sales { get; set; } = new List<SalesRecordViewModel>();
+        public List<SaleRecordViewModel> Sales { get; set; } = new List<SaleRecordViewModel>();
 
         public double TotalSales(DateTime initial, DateTime final)
         {

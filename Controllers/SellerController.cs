@@ -19,7 +19,7 @@ namespace Sales.Controllers
         public ActionResult Index()
         {
             var sellers = (from m in _context.Sellers
-                           orderby m.Id
+                           orderby m.Name
                            select new SellerViewModel
                            {
                                Id = m.Id,
@@ -189,6 +189,25 @@ namespace Sales.Controllers
             };
 
             return View(error);
+        }
+
+        public static List<SelectListItem> ListAll(SalesContext context, bool addEmpty)
+        {
+            var departments = (from m in context.Sellers
+                               select new SelectListItem
+                               {
+                                   Text = m.Name,
+                                   Value = m.Id.ToString()
+                               }).ToList();
+            if (addEmpty)
+            {
+                departments.Insert(0, new SelectListItem
+                {
+                    Text = "Selecione",
+                    Value = "0"
+                });
+            }
+            return departments;
         }
     }
 }
