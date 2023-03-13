@@ -1,0 +1,56 @@
+﻿@model List<Sales.ViewModels.DepartmentViewModel>;
+@{
+    ViewBag.Title = "Departamentos";
+}
+
+<div>
+    <div class="d-flex justify-content-between">
+        <div>
+            <h2>@ViewBag.Title</h2>
+        </div>
+        <div>
+            <a asp-controller="Department" asp-action="Create" class="btn btn-outline-primary">
+                <i class="bi bi-plus-lg"></i>
+                Novo
+            </a>
+        </div>
+    </div>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th width="10%" scope="row">#</th>
+                <th>Nome</th>
+                <th width="1%"></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        <strong>@item.Id.ToString("D2")</strong>
+                    </td>
+                    <td>
+                        @item.Name
+                    </td>
+                    <td>
+                        <div class="btn-group" role="group">
+                            <i class="bi bi-three-dots-vertical dropdown-toggle font-size" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></i>
+                            <div class="dropdown-menu">
+                                <a class="dropdown-item" asp-action="Edit" asp-route-id="@item.Id">Editar</a>
+                                <a class="dropdown-item" asp-action="Delete" asp-route-id="@item.Id">Excluir</a>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+<style>
+    .dropdown-toggle {
+        font-size: 1.4rem;
+    }
+</style>

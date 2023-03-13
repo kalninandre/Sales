@@ -1,0 +1,146 @@
+﻿@model Sales.ViewModels.SalesRecordMainViewModel;
+@using Sales.Helpers;
+@using System.Globalization;
+@{
+    ViewBag.Title = "Vendas por Vendedor";
+}
+
+<div class="container-fluid-content">
+    <div class="d-flex justify-content-between">
+        <div>
+            <h2>@ViewBag.Title</h2>
+        </div>
+        <div>
+            <a asp-controller="SaleRecords" asp-action="Create" class="btn btn-outline-primary">
+                <i class="bi bi-plus-lg"></i>
+                Novo
+            </a>
+        </div>
+    </div>
+
+    <div class="d-flex mt-2">
+        <div class="container-box filter-divisor">
+            <form asp-action="Index">
+                <div class="form-group">
+                    <label asp-for="@Model.Filter.DateStart" class="control-label"></label>
+                    <input asp-for="@Model.Filter.DateStart" class="form-control" />
+                </div>
+
+                <div class="form-group mt-4">
+                    <label asp-for="@Model.Filter.DateEnd" class="control-label"></label>
+                    <input asp-for="@Model.Filter.DateEnd" class="form-control" />
+                </div>
+
+                <div class="form-group mt-4">
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" asp-for="@Model.Filter.Status" value="false" />
+                        <label class="form-check-label" asp-for="@Model.Filter.Status">
+                            Filtar por Departamento
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" asp-for="@Model.Filter.Status" value="true" />
+                        <label class="form-check-label" asp-for="@Model.Filter.Status">
+                            Filtar por Status
+                        </label>
+                    </div>
+                </div>
+
+                <div class="d-flex align-right">
+                    <button type="submit" class="btn btn-success mt-4 pull-right">
+                        Filtrar
+                    </button>
+                </div>
+            </form>
+        </div>
+
+        <div class="container-box content-divisor">
+            @foreach (var group in Model.SalesRecordsGroups)
+            {
+                <h5>@(Model.Filter.Status ? string.Format("Status - {0}", group.Name) : string.Format("Departamento - {0}", group.Name)) <small>(@group.Counter)</small></h5>
+                <table class="table table-hover">
+                    <thead>
+                        <tr class="table-active">
+                            <th width="1%">#</th>
+                            <th>Vendedor</th>
+                            <th>Data</th>
+                            <th>Quantidade</th>
+                            <th>Status</th>
+                            <th>Departamento</th>
+                            <th width="1%"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in group.SalesRecords)
+                        {
+                            <tr>
+                                <td>
+                                    <strong>@item.Id.ToString("D2")</strong>
+                                </td>
+                                <td>
+                                    @item.SellerName
+                                </td>
+                                <td>
+                                    @item.DateString
+                                </td>
+                                <td>
+                                    @item.Amount.ToString("C", new CultureInfo("pt-Br"))
+                                </td>
+                                <td>
+                                    @item.Status.GetDescription()
+                                </td>
+                                <td>
+                                    @item.DepartmentName
+                                </td>
+                                <td>
+                                    <div class="btn-group" role="group">
+                                        <i class="bi bi-three-dots-vertical dropdown-toggle font-size" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></i>
+                                        <div class="dropdown-menu">
+                                            <a class="dropdown-item" asp-action="Edit" asp-route-id="@item.Id">Editar</a>
+                                            <a class="dropdown-item" asp-action="Delete" asp-route-id="@item.Id">Excluir</a>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            }
+        </div>
+    </div>
+</div>
+
+<style>
+    .container-fluid-content {
+        display: flex;
+        flex-direction: column;
+        margin: 0 auto;
+        max-width: 80% !important;
+    }
+
+    .align-right {
+        flex-direction: row-reverse;
+    }
+
+    .dropdown-toggle {
+        font-size: 1.4rem;
+    }
+
+    .filter-divisor {
+        flex-basis: 20%;
+        margin-right: 16px
+    }
+
+    .content-divisor {
+        flex-basis: 80%
+    }
+
+    td, th {
+        text-align: left !important;
+    }
+
+    tbody > tr:nth-of-type(even) > * {
+        background-color: rgba(0,0,0,0.05);
+        color: #55595c;
+    }
+</style>

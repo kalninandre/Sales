@@ -1,0 +1,40 @@
+﻿@model Sales.ViewModels.SellerViewModel;
+@using System.Globalization
+
+@{
+    ViewBag.Title = string.Format("Detalhes do Vendedor #{0} - {1}", Model.Id, Model.Name);
+}
+
+<h4>@ViewBag.Title</h4>
+
+<hr style="margin-bottom: 0.5rem !important;" />
+
+<div class="row">
+    <div class="col-md-6">
+        <div class="form-group">
+            <label asp-for="@Model.Name" class="control-label"></label>
+            <input readonly asp-for="@Model.Name" class="form-control" placeholder="Nome" />
+        </div>
+
+        <div class="form-group mt-4">
+            <label asp-for="@Model.Email" class="control-label"></label>
+            <input readonly asp-for="@Model.Email" class="form-control" placeholder="E-mail" />
+        </div>
+
+        <div class="form-group mt-4">
+            <label asp-for="@Model.BirthDate" class="control-label"></label>
+            <input readonly asp-for="@Model.BirthDate" class="form-control" placeholder="Data de Nascimento" />
+        </div>
+
+        <div class="form-group mt-4">
+            <label asp-for="@Model.BaseSalary" class="control-label"></label>
+            <input readonly asp-for="@Model.BaseSalary" class="form-control" placeholder="Salário" value="@Model.BaseSalary.ToString("C", new CultureInfo("pt-Br"))" />
+        </div>
+
+        <div class="d-flex align-items-center form-group mt-4">
+            <a asp-action="Index" class="btn btn-secondary text-decoration-underline">
+                Voltar
+            </a>
+        </div>
+    </div>
+</div>

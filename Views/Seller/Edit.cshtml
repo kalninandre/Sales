@@ -1,0 +1,60 @@
+﻿@model Sales.ViewModels.SellerViewModel;
+@using System.Globalization
+
+@{
+    ViewBag.Title = string.Format("Editar Vendedor #{0} - {1}", Model.Id, Model.Name);
+}
+
+<h4>@ViewBag.Title</h4>
+
+<hr style="margin-bottom: 0.5rem !important;" />
+
+<div class="row">
+    <div class="col-md-6">
+        <form asp-controller="Seller" asp-action="Edit">
+            <div class="form-group">
+                <label asp-for="@Model.Name" class="control-label"></label>
+                <input asp-for="@Model.Name" class="form-control" placeholder="Nome" />
+                <span asp-validation-for="@Model.Name" class="text-danger"></span>
+            </div>
+
+            <div class="form-group mt-4">
+                <label asp-for="@Model.Email" class="control-label"></label>
+                <input asp-for="@Model.Email" class="form-control" placeholder="E-mail" />
+                <span asp-validation-for="@Model.Email" class="text-danger"></span>
+            </div>
+
+            <div class="form-group mt-4">
+                <label asp-for="@Model.BirthDate" class="control-label"></label>
+                <input asp-for="@Model.BirthDate" class="form-control" placeholder="Data de Nascimento" />
+                <span asp-validation-for="@Model.BirthDate" class="text-danger"></span>
+            </div>
+
+            <div class="form-group mt-4">
+                <label asp-for="@Model.BaseSalary" class="control-label"></label>
+                <input asp-for="@Model.BaseSalary" class="form-control" placeholder="Salário" />
+                <span asp-validation-for="@Model.BaseSalary" class="text-danger"></span>
+            </div>
+
+            <div class="form-group mt-4">
+                <label asp-for="@Model.DepartmentId" class="control-label"></label>
+                <select asp-for="@Model.DepartmentId" asp-items="@ViewBag.Departments" class="form-control"></select>
+            </div>
+
+            <div class="d-flex justify-content-between align-items-center form-group mt-4">
+                <a asp-action="Index" class="btn btn-secondary text-decoration-underline">
+                    Voltar
+                </a>
+                <button type="submit" class="btn btn-secondary text-decoration-underline">
+                    Salvar
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

@@ -1,0 +1,74 @@
+﻿@model List<Sales.ViewModels.SellerViewModel>;
+@using System.Globalization;
+@{
+    ViewBag.Title = "Vendedores";
+}
+
+<div>
+    <div class="d-flex justify-content-between">
+        <div>
+            <h2>@ViewBag.Title</h2>
+        </div>
+        <div>
+            <a asp-controller="Seller" asp-action="Create" class="btn btn-outline-primary">
+                <i class="bi bi-plus-lg"></i>
+                Novo
+            </a>
+        </div>
+    </div>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th width="1%">#</th>
+                <th>Nome</th>
+                <th>E-mail</th>
+                <th>Data de Nascimento</th>
+                <th>Salário Base</th>
+                <th>Departamento</th>
+                <th width="1%"></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        <strong>@item.Id.ToString("D2")</strong>
+                    </td>
+                    <td>
+                        @item.Name
+                    </td>
+                    <td>
+                        @item.Email
+                    </td>
+                    <td>
+                        @item.BirthDateString
+                    </td>
+                    <td>
+                        @item.BaseSalary.ToString("C", new CultureInfo("pt-Br"))
+                    </td>
+                    <td>
+                        @item.Department.Name.ToString()
+                    </td>
+                    <td>
+                        <div class="btn-group" role="group">
+                            <i class="bi bi-three-dots-vertical dropdown-toggle font-size" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></i>
+                            <div class="dropdown-menu">
+                                <a class="dropdown-item" asp-action="Details" asp-route-id="@item.Id">Detalhes</a>
+                                <a class="dropdown-item" asp-action="Edit" asp-route-id="@item.Id">Editar</a>
+                                <a class="dropdown-item" asp-action="Delete" asp-route-id="@item.Id">Excluir</a>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+<style>
+    .dropdown-toggle {
+        font-size: 1.4rem;
+    }
+</style>
